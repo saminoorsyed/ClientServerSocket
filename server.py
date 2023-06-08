@@ -19,8 +19,10 @@ def server():
     # Accept a connection
     client_socket, client_address = server_socket.accept()
     print("Connected to:", client_address)
+
+    # print directions for chat
     print("wait for the client to message first")
-    print("type 'play tictactoe' to play it, or '/q' to exit the chat")
+    print("type 'play tictactoe' to play the game, or '/q' to exit the chat")
     try:
         while True:
             # Receive data from the client
@@ -68,6 +70,8 @@ def play_tic_tac_toe(client_socket):
     # Initialize the tic-tac-toe board
     board = [' '] * 9
     possible_moves = [ "0", "1", "2", "3", "4", "5", "6", "7", "8","/q"]
+    
+    # print directions
     print("choose space 0-8 to make your move. The Client always goes first")
     print("if you want to quit, just enter '/q' ")
     while True:
@@ -132,17 +136,19 @@ def print_board(board):
 
 def check_winner(board, player):
     winning_combinations = [
-        [0, 1, 2], [3, 4, 5], [6, 7, 8],  # rows
-        [0, 3, 6], [1, 4, 7], [2, 5, 8],  # columns
-        [0, 4, 8], [2, 4, 6]  # diagonals
+        [0, 1, 2], [3, 4, 5], [6, 7, 8],    # rows
+        [0, 3, 6], [1, 4, 7], [2, 5, 8],    # columns
+        [0, 4, 8], [2, 4, 6]                # diagonals
     ]
     for combination in winning_combinations:
+        # check if any combos = player mark
         if all(board[i] == player for i in combination):
             return True
     return False
 
 
 def is_board_full(board):
+    # true if no empty spaces on board
     return ' ' not in board
 
 
