@@ -19,12 +19,13 @@ This repository contains code for a chat room with the functionality to play Tic
 
     python server.py
 
-This will start the server and wait for a client to connect.
+    This will start the server and wait for a client to connect.
 
 4. In the other terminal window, run the client:
 
-
-This will connect the client to the server and prompt for input.
+    python3 client.py
+    
+    This will connect the client to the server and prompt for input.
 
 5. Start playing the Tic-Tac-Toe game:
 

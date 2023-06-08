@@ -8,7 +8,7 @@ def server():
     server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 
     # Bind to localhost and port
-    server_address = ('localhost', 1234)
+    server_address = ('localhost', 2222)
     server_socket.bind(server_address)
 
     # Listen for connections
@@ -74,6 +74,7 @@ def play_tic_tac_toe(client_socket):
     # print directions
     print("choose space 0-8 to make your move. The Client always goes first")
     print("if you want to quit, just enter '/q' ")
+    print_board(board)
     while True:
         # Receive the opponent's move
         opponent_move = client_socket.recv(4096).decode()
@@ -106,14 +107,13 @@ def play_tic_tac_toe(client_socket):
         possible_moves.remove(reply)
         # Send the move to the client
         client_socket.send(reply.encode())
-        
         if reply == "/q":
             break
         
         # Update the board with the player's move
         index = int(reply)
         board[index] = 'X'
-
+        print_board(board)
         # Check if the player won or the board is full
         if check_winner(board, 'X'):
             # Print the updated board

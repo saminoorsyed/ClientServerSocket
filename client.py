@@ -5,7 +5,7 @@ def client():
     client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
     # Connect to the server
-    server_address = ('localhost', 1234)
+    server_address = ('localhost', 2222)
     client_socket.connect(server_address)
     
     # print directions for chat
@@ -62,10 +62,8 @@ def play_tic_tac_toe(client_socket):
     # print directions
     print("choose space 0-8 to make your move. The Client always goes first")
     print("if you want to quit, just enter '/q' ")
+    print_board(board)
     while True:
-        # Print the current board
-        print_board(board)
-
         # Prompt for a move
         reply = input("Enter Input (0-8) > ")
         
@@ -79,7 +77,6 @@ def play_tic_tac_toe(client_socket):
         
         # Send the move to the server
         client_socket.send(reply.encode())
-        
         # end the game if user wants to quit
         if reply == "/q":
             break
@@ -87,7 +84,7 @@ def play_tic_tac_toe(client_socket):
         # Update the board with the player's move
         index = int(reply)
         board[index] = 'X'
-
+        print_board(board)
         # Check if the player won or the board is full
         if check_winner(board, 'X'):
             print_board(board)
