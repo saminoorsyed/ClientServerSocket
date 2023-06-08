@@ -7,6 +7,9 @@ def client():
     # Connect to the server
     server_address = ('localhost', 1234)
     client_socket.connect(server_address)
+    # print directions for users
+    print("connection accepted, you (the client) talk first")
+    print("type 'play tictactoe' to play it, '/q' to exit the chat")
     # use try in case there are any errors
     try:
         while True:
@@ -18,11 +21,12 @@ def client():
                 break
 
             # Check if the message is 'play tic-tac-toe' to initiate the game
-            if message.strip() == "play tic-tac-toe":
+            if message.strip() == "play tictactoe":
                 # Send the message to the server
                 client_socket.send(message.encode())
                 # Start the Tic-Tac-Toe game
                 play_tic_tac_toe(client_socket)
+                print("game over, client talks first")
                 continue
 
             # Send the message to the server
@@ -32,6 +36,11 @@ def client():
             reply = client_socket.recv(4096).decode()
             print("Server:", reply)
 
+            # if the server quits, the client also quits
+            if reply.strip() =="/q":
+                break
+
+            # if the server starts a game, start the game on the client side too
             if reply.strip() == "play tic-tac-toe":
                 # Start the Tic-Tac-Toe game
                 play_tic_tac_toe(client_socket)
@@ -40,6 +49,8 @@ def client():
     finally:
         # Close the socket
         client_socket.close()
+        print("sockets are now closed")
+
 
 def play_tic_tac_toe(client_socket):
     # Initialize the tic-tac-toe board

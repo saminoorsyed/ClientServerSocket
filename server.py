@@ -19,7 +19,8 @@ def server():
     # Accept a connection
     client_socket, client_address = server_socket.accept()
     print("Connected to:", client_address)
-
+    print("wait for the client to message first")
+    print("type 'play tictactoe' to play it, or '/q' to exit the chat")
     try:
         while True:
             # Receive data from the client
@@ -30,14 +31,16 @@ def server():
 
             print("Client:", data)
 
-            # Check if the data is '/q' to quit
+            # Check if the client quits, so does the server
             if data.strip() == "/q":
                 break
 
             # Check if the data is 'play tic-tac-toe' to initiate the game
-            if data.strip() == "play tic-tac-toe":
+            if data.strip() == "play tictactoe":
                 # Start the Tic-Tac-Toe game
                 play_tic_tac_toe(client_socket)
+                print("Game over. Wait for the client to message first")
+
                 continue
 
             # Prompt for reply
@@ -59,12 +62,14 @@ def server():
         # Close the sockets
         client_socket.close()
         server_socket.close()
+        print("sockets are now closed")
 
 def play_tic_tac_toe(client_socket):
     # Initialize the tic-tac-toe board
     board = [' '] * 9
     possible_moves = [ "0", "1", "2", "3", "4", "5", "6", "7", "8","/q"]
-
+    print("choose space 0-8 to make your move. The Client always goes first")
+    print("if you want to quit, just enter '/q' ")
     while True:
         # Receive the opponent's move
         opponent_move = client_socket.recv(4096).decode()
@@ -117,7 +122,7 @@ def play_tic_tac_toe(client_socket):
             print("draw game")
             break
 
-
+# prints the board array in 3 rows with borders for each space
 def print_board(board):
     print("-------------")
     for i in range(3):
