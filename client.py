@@ -42,7 +42,7 @@ def client():
                 break
 
             # if the server starts a game, start the game on the client side too
-            if reply.strip() == "play tic-tac-toe":
+            if reply.strip() == "play tictactoe":
                 # Start the Tic-Tac-Toe game
                 play_tic_tac_toe(client_socket)
                 continue

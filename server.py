@@ -51,7 +51,7 @@ def server():
             # Send the reply to the client
             client_socket.send(reply.encode())
 
-            if reply.strip() == "play tic-tac-toe":
+            if reply.strip() == "play tictactoe":
                 # Start the Tic-Tac-Toe game
                 play_tic_tac_toe(client_socket)
                 continue
